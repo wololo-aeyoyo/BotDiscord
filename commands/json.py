@@ -6,7 +6,7 @@ import aiohttp
 import requests
 from random import randint
 import os
-
+vainita=["Epa no busques vaina de koishi","cuidado lo que buscas lince","aqui esta tu contenido","ya llego lo delicioso !!!","cuidado cuando te tocas la marmota","pendiente de ese ganzo","pilas y esnucas  al ganzo","mira mira se te va a morir la nutria"]
 class comando(commands.Cog):
 	
 	def __init__(self, bot):
@@ -63,7 +63,7 @@ class comando(commands.Cog):
 	    			embed=discord.Embed(title="[Click pa ve donde]", url="https://gelbooru.com/index.php?page=post&s=view&id={}".format(js[ran]["id"]), description=js[ran]["owner"], color=0xe90309)
 	    			embed.set_author(name="La fotico mi pana", icon_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
 	    			embed.set_thumbnail(url="https://pbs.twimg.com/profile_images/1118350008003301381/3gG6lQMl.png")
-	    			embed.set_footer(text="Epa no busques vaina de koishi")
+	    			embed.set_footer(text=vainita[randint(0,7)])
 	    			embed.set_image(url=js[ran]["file_url"])
 	    			embed.add_field(name="La tag es " +query_string, value="numero e imagen {}".format(ran), inline=True)
 	    			await ctx.send(embed=embed)	                	
