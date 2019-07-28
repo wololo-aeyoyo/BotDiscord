@@ -32,13 +32,13 @@ class comando(commands.Cog):
 
 
 #Codigos de error	                
-
+"""
 	async def cog_command_error(self,ctx,error):
 	 	if isinstance(error,commands.MissingRequiredArgument):
 	 		await ctx.send("manda la vaina bien pedazo de gay")
 	 	elif isinstance(error,commands.CommandInvokeError):
 	 		await ctx.send("Esa tag no existe mariguanero ve las tags bien")
-
+"""
 
 def setup(bot):
 	bot.add_cog(comando(bot))
