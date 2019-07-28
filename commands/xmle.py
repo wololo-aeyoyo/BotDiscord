@@ -20,14 +20,14 @@ class comando(commands.Cog):
 		largo=len(resultado)
 		largo=largo-2
 		print(largo)
-		aux=resultado[5]
+		aux=resultado[randint(2,largo)]
 		aux=re.findall(r"\"(.*?)\"",aux)
 		embed=discord.Embed(title="[Click pa ve donde]", url="https://rule34.xxx/index.php?page=post&s=view&id=".format(aux[10]), description="deberia hacer algo mejor con mi vida", color=0xe90309)
 		embed.set_author(name="el beta", icon_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
 		embed.set_thumbnail(url="https://i.pinimg.com/originals/d9/51/bb/d951bbee810ba54ba379ec286a57a073.png")
 		embed.set_footer(text="im gonna say the n word")
 		embed.set_image(url=aux[2])
-		embed.add_field(name="la tag es: " +lurk, inline=True)
+		embed.add_field(name="la tag es: " +lurk, value="nada" ,inline=True)
 		await ctx.send(embed=embed)
 
 
