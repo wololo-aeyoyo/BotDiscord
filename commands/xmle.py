@@ -20,7 +20,7 @@ class comando(commands.Cog):
 		largo=len(resultado)
 		largo=largo-2
 		print(largo)
-		aux=resultado[randint(2,largo)]
+		aux=resultado[5]
 		aux=re.findall(r"\"(.*?)\"",aux)
 		embed=discord.Embed(title="[Click pa ve donde]", url="https://rule34.xxx/index.php?page=post&s=view&id=".format(aux[10]), description="deberia hacer algo mejor con mi vida", color=0xe90309)
 		embed.set_author(name="el beta", icon_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
