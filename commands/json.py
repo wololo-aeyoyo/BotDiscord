@@ -27,7 +27,7 @@ class comando(commands.Cog):
 
 
 	    else:
-	          embed=discord.Embed(title="El valor del US DOLLAH", description="La cantidad de (1) unidad de DOLLAH es :".format(culo), color=0xec3c00)
+	          embed=discord.Embed(title="El valor del US DOLLAH", description="La cantidad de (1) unidad de DOLLAH es :", color=0xec3c00)
 	          embed.set_author(name="En dolar toddy", icon_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
 	          embed.add_field(name=str(float(todos["USD"]['dolartoday'])), value="99999999shekels/seg", inline=True)
 	          embed.set_thumbnail(url="https://i2.kym-cdn.com/photos/images/original/000/561/330/010.jpg")

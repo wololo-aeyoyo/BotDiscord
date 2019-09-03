@@ -49,7 +49,7 @@ async def on_ready():
 @bot.listen()
 async def on_message(message):
 
-    if "c0nc0l0r" in message.content.lower():
+    if "maldita sea conqui" in message.content.lower():
         await message.channel.send( "No <@142810852406460416> , El comunismo no funciona")
         await bot.process_commands(message)
 
@@ -59,7 +59,19 @@ async def on_message(message):
     if "kevin" in message.content.lower():
         await message.channel.send("GodSpammer")
         await bot.process_commands(message)
+    if "navidad" in message.content.lower():
+        embed=discord.Embed(color=0x0397D5)
+        embed.set_footer(text=" ﺟﻬﺎﺩ ")
+        embed.set_image(url="https://i.imgur.com/ZC2sWcT.png")
+        await message.channel.send(embed=embed)        
+        await bot.process_commands(message)
 
+    if "facista" in message.content.lower():
+        embed=discord.Embed(color=0x0397D5)
+        embed.set_footer(text="übermensch")
+        embed.set_image(url="https://i.imgur.com/h9wfpHa.jpg")
+        await message.channel.send(embed=embed)        
+        await bot.process_commands(message)
 
 bot.run(os.environ["tokkend"])
 
