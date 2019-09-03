@@ -86,7 +86,7 @@ class comando(commands.Cog):
 		global nameo
 		global flag
 		print(message.author.id)
-		if message.author.id==616471135835652120 and faggot==1:
+		if message.author.id==603204431135375370 and faggot==1:
 			await asyncio.sleep(60)
 			print("paso por listener")
 			counts = {react.emoji: react.count for react in message.reactions}
