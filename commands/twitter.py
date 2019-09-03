@@ -85,6 +85,7 @@ class comando(commands.Cog):
 		global e
 		global nameo
 		global flag
+		print(message.author.id)
 		if message.author.id==616471135835652120 and faggot==1:
 			await asyncio.sleep(60)
 			print("paso por listener")
