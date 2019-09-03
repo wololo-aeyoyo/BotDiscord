@@ -41,7 +41,6 @@ class comando(commands.Cog):
 	    print("end my suffering")
 	    nameo="<@"+ str(ctx.author.id )+ "> " 
 	    print("aaasckasdmnfksdnmfklsdmfk")
-	    print(ctx.message.attachments)
 	    if len(ctx.message.attachments)==0:
 	    	await ctx.send("<@"+ str(ctx.author.id )+ "> "+" quiere spamear una vaina ahi en twister \n reacciona con 👍🏻 ~~a ver si me me cierran el twitter~~, \n reacciona con 👎🏿 porque es cringe \n los votos se mandaran en una (1) unidad de minuto")
 	    	embed=discord.Embed(title="Wololo's personal twitter", url="https://twitter.com/Wololo_aeyoyo/", description="el mensaje autista: "+ soltext, color=0x031cfc)
@@ -85,7 +84,6 @@ class comando(commands.Cog):
 		global e
 		global nameo
 		global flag
-		print(message.author.id)
 		if message.author.id==603204431135375370 and faggot==1:
 			await asyncio.sleep(60)
 			print("paso por listener")
