@@ -29,7 +29,6 @@ def check_status(r):
 	if r.status_code < 200 or r.status_code > 299:
 		print(r.status_code)
 		print(r.text)
-		sys.exit(0)
 
 class comando(commands.Cog):
 	
@@ -132,7 +131,7 @@ class comando(commands.Cog):
 				nombre=nombre[:-1]
 				link=link.replace("url='","")
 				link=link[:-2]
-				if nombre.endswith(".mp4" or ".mkv"):
+				if nombre.endswith(".mp4" or ".mkv" or ".webm" or ".mov"):
 					async with aiohttp.ClientSession() as session:
 						async with session.get(link) as imagen:
 							if imagen.status == 200:
