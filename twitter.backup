@@ -122,3 +122,5 @@ class comando(commands.Cog):
 	 		else: await ctx.send("**Ese guevo tuyo tan bien largo uwu. Esa vaina pesa mucho**")
 def setup(bot):
 	bot.add_cog(comando(bot))
+
+603204431135375370

@@ -8,6 +8,7 @@ import os
 from PIL import Image
 from TwitterAPI import TwitterAPI
 import asyncio
+import sys
 faggot=0
 verga =0
 api = TwitterAPI(os.environ["betica"],os.environ["betica2"],os.environ["betica3"],os.environ["betica4"])
@@ -23,6 +24,12 @@ class DeleteTweet(Thread):
         r = api.request('statuses/destroy/:%d' % self.tweet_id)
         print(self.count if r.status_code == 200 else 'PROBLEM: ' + r.text)
 
+def check_status(r):
+	# EXIT PROGRAM WITH ERROR MESSAGE
+	if r.status_code < 200 or r.status_code > 299:
+		print(r.status_code)
+		print(r.text)
+		sys.exit(0)
 
 class comando(commands.Cog):
 	
@@ -84,6 +91,7 @@ class comando(commands.Cog):
 		global e
 		global nameo
 		global flag
+		
 		if message.author.id==603204431135375370 and faggot==1:
 			await asyncio.sleep(60)
 			print("paso por listener")
@@ -124,46 +132,91 @@ class comando(commands.Cog):
 				nombre=nombre[:-1]
 				link=link.replace("url='","")
 				link=link[:-2]
-				async with aiohttp.ClientSession() as session:
-					async with session.get(link) as imagen:
-						if imagen.status == 200:
-							pic = await imagen.read()
-							with open("images/{}".format(nombre), "wb") as f:
-								f.write(pic)
-
-							if nombre.endswith(".png" or ".jpg"):
-								foo = Image.open("images/{}".format(nombre))
-								rgb_im = foo.convert('RGB')
-								rgb_im.thumbnail((1024, 1080), Image.ANTIALIAS)
-								rgb_im.save("images/tumbnaila_{}".format(nombre)+".jpg",quality=95,optimize=True)
-								file = open("images/tumbnaila_{}".format(nombre)+".jpg", 'rb')
-
-							else:
+				if nombre.endswith(".mp4" or ".mkv"):
+					async with aiohttp.ClientSession() as session:
+						async with session.get(link) as imagen:
+							if imagen.status == 200:
+								vid = await imagen.read()
+								with open("images/{}".format(nombre), "wb") as f:
+									f.write(vid)
+								bytes_sent = 0
+								total_bytes = os.path.getsize("images/{}".format(nombre))
 								file = open("images/{}".format(nombre), 'rb')
+								r = api.request('media/upload', {'command':'INIT', 'media_type':'video/mp4', 'total_bytes':total_bytes})
+								check_status(r)
 
-							data = file.read()
-							r = api.request('media/upload', None, {'media': data})
-							print('UPLOAD MEDIA SUCCESS' if r.status_code == 200 else 'UPLOAD MEDIA FAILURE: ' + r.text)
-
-							if r.status_code == 200:
 								media_id = r.json()['media_id']
-							print(media_id)
-							r = api.request('statuses/update', {'status': soltext, 'media_ids': media_id})
-							print(r)
-							print('UPDATE STATUS SUCCESS' if r.status_code == 200 else 'UPDATE STATUS FAILURE: ' + r.text)
-							print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-							count=0
-							r=api.request('statuses/user_timeline', {'count': 1})
-							for item in r:
-								if 'id' in item:
-									count += 1
-									tweet_id = item['id']
-							embed=discord.Embed(title="[Click pa ve donde]", url="https://twitter.com/Wololo_aeyoyo/status/"+str(tweet_id), description="el mensaje autista: "+soltext, color=0x031cfc)
-							embed.set_author(name="Tu Tweet se posteo relajado en @wololo_aeyoyo", url="https://twitter.com/Wololo_aeyoyo", icon_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
-							embed.set_thumbnail(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
-							embed.set_footer(text="dame sexo mi pana")
-							embed.set_image(url=link)
-							await message.channel.send(embed=embed)
+								segment_id = 0
+
+								while bytes_sent < total_bytes:
+									chunk = file.read(4*1024*1024)
+									r = api.request('media/upload', {'command':'APPEND', 'media_id':media_id, 'segment_index':segment_id}, {'media':chunk})
+									check_status(r)
+									segment_id = segment_id + 1
+									bytes_sent = file.tell()
+									print('[' + str(total_bytes) + ']', str(bytes_sent))
+
+								r = api.request('media/upload', {'command':'FINALIZE', 'media_id':media_id})
+								check_status(r)
+
+								r = api.request('statuses/update', {'status':soltext, 'media_ids':media_id})
+								check_status(r)
+
+								print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+								count=0
+								r=api.request('statuses/user_timeline', {'count': 1})
+								for item in r:
+									if 'id' in item:
+										count += 1
+										tweet_id = item['id']
+								embed=discord.Embed(title="[Click pa ve donde]", url="https://twitter.com/Wololo_aeyoyo/status/"+str(tweet_id), description="el mensaje autista: "+soltext, color=0x031cfc)
+								embed.set_author(name="Tu Tweet se posteo relajado en @wololo_aeyoyo", url="https://twitter.com/Wololo_aeyoyo", icon_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
+								embed.set_thumbnail(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
+								embed.set_footer(text="dame sexo mi pana")
+								embed.set_image(url=link)
+								await message.channel.send(embed=embed)
+
+				else:
+					async with aiohttp.ClientSession() as session:
+						async with session.get(link) as imagen:
+							if imagen.status == 200:
+								pic = await imagen.read()
+								with open("images/{}".format(nombre), "wb") as f:
+									f.write(pic)
+
+								if nombre.endswith(".png" or ".jpg"):
+									foo = Image.open("images/{}".format(nombre))
+									rgb_im = foo.convert('RGB')
+									rgb_im.thumbnail((1024, 1080), Image.ANTIALIAS)
+									rgb_im.save("images/tumbnaila_{}".format(nombre)+".jpg",quality=95,optimize=True)
+									file = open("images/tumbnaila_{}".format(nombre)+".jpg", 'rb')
+
+								else:
+									file = open("images/{}".format(nombre), 'rb')
+
+								data = file.read()
+								r = api.request('media/upload', None, {'media': data})
+								print('UPLOAD MEDIA SUCCESS' if r.status_code == 200 else 'UPLOAD MEDIA FAILURE: ' + r.text)
+
+								if r.status_code == 200:
+									media_id = r.json()['media_id']
+								print(media_id)
+								r = api.request('statuses/update', {'status': soltext, 'media_ids': media_id})
+								print(r)
+								print('UPDATE STATUS SUCCESS' if r.status_code == 200 else 'UPDATE STATUS FAILURE: ' + r.text)
+								print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+								count=0
+								r=api.request('statuses/user_timeline', {'count': 1})
+								for item in r:
+									if 'id' in item:
+										count += 1
+										tweet_id = item['id']
+								embed=discord.Embed(title="[Click pa ve donde]", url="https://twitter.com/Wololo_aeyoyo/status/"+str(tweet_id), description="el mensaje autista: "+soltext, color=0x031cfc)
+								embed.set_author(name="Tu Tweet se posteo relajado en @wololo_aeyoyo", url="https://twitter.com/Wololo_aeyoyo", icon_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
+								embed.set_thumbnail(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
+								embed.set_footer(text="dame sexo mi pana")
+								embed.set_image(url=link)
+								await message.channel.send(embed=embed)
 			if compa<=compb:
 				await message.channel.send(nameo+"post descartado por ser cringe")
 				flag=0
