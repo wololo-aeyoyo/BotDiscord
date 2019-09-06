@@ -131,7 +131,7 @@ class comando(commands.Cog):
 				nombre=nombre[:-1]
 				link=link.replace("url='","")
 				link=link[:-2]
-				if nombre.endswith(".mp4" or ".mkv" or ".webm" or ".mov"):
+				if nombre.endswith(".mp4"):
 					async with aiohttp.ClientSession() as session:
 						async with session.get(link) as imagen:
 							if imagen.status == 200:
@@ -172,8 +172,8 @@ class comando(commands.Cog):
 								embed.set_author(name="Tu Tweet se posteo relajado en @wololo_aeyoyo", url="https://twitter.com/Wololo_aeyoyo", icon_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
 								embed.set_thumbnail(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
 								embed.set_footer(text="dame sexo mi pana")
-								embed.set_image(url=link)
 								await message.channel.send(embed=embed)
+								await message.channel.send("||"+link+"||")
 
 				else:
 					async with aiohttp.ClientSession() as session:
