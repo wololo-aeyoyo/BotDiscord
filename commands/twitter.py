@@ -173,7 +173,7 @@ class comando(commands.Cog):
 								embed.set_thumbnail(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTvrFytZTMQnW6cD-85691yjeNYHetZ3aXe1Ts3sYzLzptQXXx")
 								embed.set_footer(text="dame sexo mi pana")
 								await message.channel.send(embed=embed)
-								await message.channel.send("||"+link+"||")
+								await message.channel.send("https://twitter.com/Wololo_aeyoyo/status/"+str(tweet_id))
 
 				else:
 					async with aiohttp.ClientSession() as session:
