@@ -74,7 +74,7 @@ async def on_message(message):
         await message.channel.send(embed=embed)        
         await bot.process_commands(message)
         
-    if "kazuma es homosexual"or "kazuma es gay" in message.content.lower():
+    if "kazuma es homosexual" or "kazuma es gay" in message.content.lower():
         await message.channel.send("ese pana es alto gay")
         await bot.process_commands(message) 
         
