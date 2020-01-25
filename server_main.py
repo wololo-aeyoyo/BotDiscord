@@ -48,11 +48,7 @@ async def on_ready():
 
 @bot.listen()
 async def on_message(message):
-    
-    if "kazuma es homosexual" in message.content.lower():
-        await message.channel.send("ese pana es Alto furro gay")
-        await bot.process_commands(message)
-        
+       
     if "maldita sea conqui" in message.content.lower():
         await message.channel.send( "No <@142810852406460416> , El comunismo no funciona")
         await bot.process_commands(message)
@@ -77,7 +73,10 @@ async def on_message(message):
         embed.set_image(url="https://i.imgur.com/h9wfpHa.jpg")
         await message.channel.send(embed=embed)        
         await bot.process_commands(message)
-
+        
+    if "kazuma es homosexual" in message.content.lower():
+        await message.channel.send("ese pana es alto gay")
+        await bot.process_commands(message)
 bot.run(os.environ["tokkend"])
 
 
