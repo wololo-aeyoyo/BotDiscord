@@ -48,7 +48,9 @@ async def on_ready():
 
 @bot.listen()
 async def on_message(message):
-
+    if "Kasuma es homosexual" in message.content.lower():
+        await message.channel.send("ese pana es Alto furro gay")
+        await bot.process_commands(message)
     if "maldita sea conqui" in message.content.lower():
         await message.channel.send( "No <@142810852406460416> , El comunismo no funciona")
         await bot.process_commands(message)
@@ -56,6 +58,7 @@ async def on_message(message):
     if "wololo" in message.content.lower():
         await message.channel.send("aeyoyo")
         await bot.process_commands(message)
+        
     if "kevin" in message.content.lower():
         await message.channel.send("GodSpammer")
         await bot.process_commands(message)
