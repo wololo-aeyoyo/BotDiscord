@@ -25,7 +25,12 @@ async def matrix(ctx,extension):
     bot.load_extension(f"commands.{extension}")
     await ctx.send("se recargo el modulo: "+ extension)
 
-
+@bot.command()
+@commands.check(theboss)
+async def Matar(ctx,extension):
+    bot.unload_extension(f"commands.{extension}")
+    await ctx.send("Jodete alvaro: "+ extension)
+    
 @bot.command()
 async def youtube(ctx, *, search):
     query_string = parse.urlencode({'search_query': search})
